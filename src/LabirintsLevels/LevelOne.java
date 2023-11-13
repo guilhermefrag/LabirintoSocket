@@ -69,7 +69,6 @@ public class LevelOne extends Level{
                 "####################\n\n",
         };
         SuccessPath = new String[]{
-                "1",
                 "D",
                 "W",
                 "A",

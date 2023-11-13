@@ -119,7 +119,6 @@ public class LevelTwo extends Level{
 
         };
         SuccessPath = new String[]{
-                "2",
                 "W",
                 "A",
                 "S",

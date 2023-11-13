@@ -18,26 +18,18 @@ public class Level {
             "    \\  / | |__| | |____| |____     \\  /  | |____| |\\  | |____| |____| |__| |\n" +
             "     \\/   \\____/ \\_____|______|     \\/   |______|_| \\_|\\_____|______|\\____/ \n";
 
-    private String StartArt = " _______ _______ _______ _______ _______ _______ _______ _______ _______ \n" +
-            "(  ____ (  ____ (  ____ (  ____ (  ____ (  ____ (  ____ (  ____ (  ____ \\\n" +
-            " ______       _____ ______   __ \n" +
-            " |  ____/\\    / ____|  ____| /_ |\n" +
-            " | |__ /  \\  | (___ | |__     | |\n" +
-            " |  __/ /\\ \\  \\___ \\|  __|    | |\n" +
-            " | | / ____ \\ ____) | |____   | |\n" +
-            " |_|/_/    \\_\\_____/|______|  |_|";
 
-    private String FinalArt = "__      ______   _____ ______  __      ________ _   _  _____ ______ _    _ \n" +
-            " \\ \\    / / __ \\ / ____|  ____| \\ \\    / /  ____| \\ | |/ ____|  ____| |  | |\n" +
-            "  \\ \\  / / |  | | |    | |__     \\ \\  / /| |__  |  \\| | |    | |__  | |  | |\n" +
-            "   \\ \\/ /| |  | | |    |  __|     \\ \\/ / |  __| | . ` | |    |  __| | |  | |\n" +
-            "    \\  / | |__| | |____| |____     \\  /  | |____| |\\  | |____| |____| |__| |\n" +
-            "     \\/   \\____/ \\_____|______|     \\/   |______|_| \\_|\\_____|______|\\____/ \n";
+    private String FinalArt = "  ______ _____ __  __   _____  ______        _  ____   _____  ____    _____        _____            ____  ______ _   _  _____ \n" +
+            " |  ____|_   _|  \\/  | |  __ \\|  ____|      | |/ __ \\ / ____|/ __ \\  |  __ \\ /\\   |  __ \\     /\\   |  _ \\|  ____| \\ | |/ ____|\n" +
+            " | |__    | | | \\  / | | |  | | |__         | | |  | | |  __| |  | | | |__) /  \\  | |__) |   /  \\  | |_) | |__  |  \\| | (___  \n" +
+            " |  __|   | | | |\\/| | | |  | |  __|    _   | | |  | | | |_ | |  | | |  ___/ /\\ \\ |  _  /   / /\\ \\ |  _ <|  __| | . ` |\\___ \\ \n" +
+            " | |     _| |_| |  | | | |__| | |____  | |__| | |__| | |__| | |__| | | |  / ____ \\| | \\ \\  / ____ \\| |_) | |____| |\\  |____) |\n" +
+            " |_|    |_____|_|  |_| |_____/|______|  \\____/ \\____/ \\_____|\\____/  |_| /_/    \\_\\_|  \\_\\/_/    \\_\\____/|______|_| \\_|_____/ \n";
     public void printLevel() {
         for (String row : labyrinthFrames) {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +row+"\n\n\n\n");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -46,25 +38,40 @@ public class Level {
 
     public void printFailedArt() {
         System.out.println("\n\n\n\n\n\n"+FailedArt+"\n\n\n\n\n\n");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        };
     }
 
     public void printSuccessArt() {
         System.out.println("\n\n\n\n\n\n"+SuccessArt+"\n\n\n\n\n\n");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        };
     }
 
     public void printFinalArt() {
         System.out.println("\n\n\n\n\n\n"+FinalArt+"\n\n\n\n\n\n");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        };
     }
 
     public boolean sendPath(List<String> clientPath) {
-        if(clientPath.size() != SuccessPath.length - 1) {
+        if(clientPath.size() != SuccessPath.length) {
             System.out.print(clientPath.size() + " " + SuccessPath.length);
-            System.out.println("\nWrong path size");
+            System.out.println("\nWrong size");
             return false;
         }
         else {
-            for (int i = 1; i < clientPath.size(); i++) {
-                if (!clientPath.get(i - 1).equals(SuccessPath[i])) {
+            for (int i = 0; i < clientPath.size(); i++) {
+                if (!clientPath.get(i).toUpperCase().equals(SuccessPath[i])) {
                     System.out.println("Wrong path");
                     return false;
                 }

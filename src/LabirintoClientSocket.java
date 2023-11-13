@@ -10,13 +10,6 @@ import java.util.Scanner;
 
 public class LabirintoClientSocket {
     public static void main(String[] args) throws IOException {
-        LevelOne levelOne = new LevelOne();
-        LevelTwo levelTwo = new LevelTwo();
-
-        List<Level> levels = new ArrayList<>();
-        levels.add(levelOne);
-        levels.add(levelTwo);
-
         System.out.println("O jogo irá começar em 10 segundos" +
                 "Regras do Jogo: você deve chegar ao final do labirinto. Para isso, você deve digitar\n" +
                 "W para cima,\n" +
@@ -28,45 +21,54 @@ public class LabirintoClientSocket {
                 "O boneco irá se mover somente após o envio do caminho a ser percorrido.\n" +
                 "Boa sorte!\n");
 
-        Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.PORT);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        DataInputStream inbound = new DataInputStream(clientSocket.getInputStream());
-        DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream());
+        int requestedLevel = 1;
 
-        Scanner scanner = new Scanner(System.in);
-        int selectedLevel = 1;
         while (true) {
+            LevelOne levelOne = new LevelOne();
+            LevelTwo levelTwo = new LevelTwo();
 
-            outbound.writeInt(selectedLevel);
-            String responseMessage = inbound.readUTF();
-            Level level = levels.get(selectedLevel - 1);
-            System.out.println(responseMessage);
-            System.out.println(level.getLabyrinthFrames()[0]);
+            List<Level> levels = new ArrayList<>();
+            levels.add(levelOne);
+            levels.add(levelTwo);
+
+            Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.PORT);
+
+            DataInputStream inbound = new DataInputStream(clientSocket.getInputStream());
+            DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream());
+
+            Level currentLevel = levels.get(requestedLevel - 1);
+
+            Scanner scanner = new Scanner(System.in);
+            String userInput = null;
+            outbound.writeInt(requestedLevel);
+            System.out.println(currentLevel.getLabyrinthFrames()[0]);
             System.out.println("Enter your moves (W/A/S/D, separated by commas): ");
-            String userInput = scanner.nextLine().trim();
 
-            List<String> userMoves = new ArrayList<>();
-            for (String move : userInput.split(",")) {
-                userMoves.add(move.trim().toUpperCase());
+            userInput = scanner.nextLine();
+
+            outbound.writeUTF(userInput);
+
+            requestedLevel = inbound.readInt();
+            boolean isLevelCompleted = inbound.readBoolean();
+
+            if (requestedLevel > levels.size()) {
+                currentLevel.printLevel();
+                currentLevel.printSuccessArt();
+                currentLevel.printFinalArt();
             }
-
-            for (String move : userMoves) {
-                outbound.writeUTF(move);
-            }
-
-            selectedLevel = inbound.readInt();
-
-            if (selectedLevel < 0) {
-                level.printFinalArt();
-            }
-            boolean nextLevel = inbound.readBoolean();
-            if (nextLevel) {
-                level.printSuccessArt();
+            else if (isLevelCompleted) {
+                currentLevel.printLevel();
+                currentLevel.printSuccessArt();
             }
             else {
-                level.printFailedArt();
+                currentLevel.printFailedArt();
             }
-            System.out.println("Server Move: " + selectedLevel + " " + nextLevel);
 
         }
     }
