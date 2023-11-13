@@ -45,7 +45,7 @@ public class LabirintoClientSocket {
             DataInputStream inbound = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream());
 
-            Level currentLevel = levels.get(requestedLevel - 1);
+            Level currentLevel = levels.get(requestedLevel <= levels.size() ? requestedLevel -1 : 0) ;
 
             Scanner scanner = new Scanner(System.in);
             String userInput = null;
