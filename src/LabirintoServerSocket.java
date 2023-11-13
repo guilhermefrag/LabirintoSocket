@@ -1,5 +1,6 @@
 import LabirintsLevels.Level;
 import LabirintsLevels.LevelOne;
+import LabirintsLevels.LevelThree;
 import LabirintsLevels.LevelTwo;
 
 import java.io.DataInputStream;
@@ -18,10 +19,12 @@ public class LabirintoServerSocket {
         ServerSocket serverSocket = new ServerSocket(8080, 5);
         LevelOne levelOne = new LevelOne();
         LevelTwo levelTwo = new LevelTwo();
+        LevelThree levelThree = new LevelThree();
 
         List<Level> levels = new ArrayList<>();
         levels.add(levelOne);
         levels.add(levelTwo);
+        levels.add(levelThree);
 
         while (true) {
             Socket clientSocket = serverSocket.accept();

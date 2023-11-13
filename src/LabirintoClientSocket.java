@@ -1,5 +1,6 @@
 import LabirintsLevels.Level;
 import LabirintsLevels.LevelOne;
+import LabirintsLevels.LevelThree;
 import LabirintsLevels.LevelTwo;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class LabirintoClientSocket {
     public static void main(String[] args) throws IOException {
-        System.out.println("O jogo irá começar em 10 segundos" +
+        System.out.println("O jogo irá começar em 5 segundos\n" +
                 "Regras do Jogo: você deve chegar ao final do labirinto. Para isso, você deve digitar\n" +
                 "W para cima,\n" +
                 "S para baixo,\n" +
@@ -32,10 +33,12 @@ public class LabirintoClientSocket {
         while (true) {
             LevelOne levelOne = new LevelOne();
             LevelTwo levelTwo = new LevelTwo();
+            LevelThree levelThree = new LevelThree();
 
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
+            levels.add(levelThree);
 
             Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.PORT);
 
