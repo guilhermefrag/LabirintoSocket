@@ -2,6 +2,7 @@ import LabirintsLevels.Level;
 import LabirintsLevels.LevelOne;
 import LabirintsLevels.LevelThree;
 import LabirintsLevels.LevelTwo;
+import configs.GlobalsVariables;
 
 import java.io.*;
 import java.net.*;
