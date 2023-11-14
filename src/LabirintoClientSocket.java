@@ -64,6 +64,7 @@ public class LabirintoClientSocket {
                 currentLevel.printLevel();
                 currentLevel.printSuccessArt();
                 currentLevel.printFinalArt();
+                currentLevel.printRestartArt();
             }
             else if (isLevelCompleted) {
                 currentLevel.printLevel();

@@ -25,42 +25,46 @@ public class Level {
             " |  __|   | | | |\\/| | | |  | |  __|    _   | | |  | | | |_ | |  | | |  ___/ /\\ \\ |  _  /   / /\\ \\ |  _ <|  __| | . ` |\\___ \\ \n" +
             " | |     _| |_| |  | | | |__| | |____  | |__| | |__| | |__| | |__| | | |  / ____ \\| | \\ \\  / ____ \\| |_) | |____| |\\  |____) |\n" +
             " |_|    |_____|_|  |_| |_____/|______|  \\____/ \\____/ \\_____|\\____/  |_| /_/    \\_\\_|  \\_\\/_/    \\_\\____/|______|_| \\_|_____/ \n";
+
+    private String RestartArt = "  _____  ______ _____ _   _ _____ _____ _____          _   _ _____   ____         _  ____   _____  ____  \n" +
+            " |  __ \\|  ____|_   _| \\ | |_   _/ ____|_   _|   /\\   | \\ | |  __ \\ / __ \\       | |/ __ \\ / ____|/ __ \\ \n" +
+            " | |__) | |__    | | |  \\| | | || |      | |    /  \\  |  \\| | |  | | |  | |      | | |  | | |  __| |  | |\n" +
+            " |  _  /|  __|   | | | . ` | | || |      | |   / /\\ \\ | . ` | |  | | |  | |  _   | | |  | | | |_ | |  | |\n" +
+            " | | \\ \\| |____ _| |_| |\\  |_| || |____ _| |_ / ____ \\| |\\  | |__| | |__| | | |__| | |__| | |__| | |__| |\n" +
+            " |_|  \\_\\______|_____|_| \\_|_____\\_____|_____/_/    \\_\\_| \\_|_____/ \\____/   \\____/ \\____/ \\_____|\\____/ \n";
+
+    public void awaitPrintTime(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public void printLevel() {
         for (String row : labyrinthFrames) {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +row+"\n\n\n\n");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            awaitPrintTime();
         }
     }
 
     public void printFailedArt() {
         System.out.println("\n\n\n\n\n\n"+FailedArt+"\n\n\n\n\n\n");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        };
+        awaitPrintTime();
     }
 
     public void printSuccessArt() {
         System.out.println("\n\n\n\n\n\n"+SuccessArt+"\n\n\n\n\n\n");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        };
+        awaitPrintTime();
     }
 
     public void printFinalArt() {
         System.out.println("\n\n\n\n\n\n"+FinalArt+"\n\n\n\n\n\n");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        };
+        awaitPrintTime();
+    }
+
+    public void printRestartArt() {
+        System.out.println("\n\n\n\n\n\n"+RestartArt+"\n\n\n\n\n\n");
+        awaitPrintTime();
     }
 
     public boolean sendPath(List<String> clientPath) {

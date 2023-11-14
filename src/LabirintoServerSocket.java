@@ -35,6 +35,7 @@ public class LabirintoServerSocket {
             });
             clientHandlerThread.start();
         }
+
     }
 
     private static void handleClient(Socket clientSocket, List<Level> levels) {
@@ -42,6 +43,9 @@ public class LabirintoServerSocket {
              DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream())) {
 
             int requestedLevel = inbound.readInt();
+            if (requestedLevel == levels.size() + 1) {
+                requestedLevel = 1;
+            }
             System.out.println("Received level request: " + requestedLevel);
 
             currentLevelIndex = requestedLevel - 1;
