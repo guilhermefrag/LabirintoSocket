@@ -1,7 +1,5 @@
-import LabirintsLevels.Level;
-import LabirintsLevels.LevelOne;
-import LabirintsLevels.LevelThree;
-import LabirintsLevels.LevelTwo;
+import LabirintsLevels.*;
+import configs.GlobalsVariables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,15 +14,17 @@ public class LabirintoServerSocket {
     private static int nextLevelIndex = 0;
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8080, 5);
+        ServerSocket serverSocket = new ServerSocket(GlobalsVariables.SERVER_PORT, GlobalsVariables.SERVER_BACKLOG);
         LevelOne levelOne = new LevelOne();
         LevelTwo levelTwo = new LevelTwo();
         LevelThree levelThree = new LevelThree();
+        LevelFour levelFour = new LevelFour();
 
         List<Level> levels = new ArrayList<>();
         levels.add(levelOne);
         levels.add(levelTwo);
         levels.add(levelThree);
+        levels.add(levelFour);
 
         while (true) {
             Socket clientSocket = serverSocket.accept();

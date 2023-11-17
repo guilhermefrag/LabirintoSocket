@@ -1,7 +1,4 @@
-import LabirintsLevels.Level;
-import LabirintsLevels.LevelOne;
-import LabirintsLevels.LevelThree;
-import LabirintsLevels.LevelTwo;
+import LabirintsLevels.*;
 import configs.GlobalsVariables;
 
 import java.io.*;
@@ -35,13 +32,15 @@ public class LabirintoClientSocket {
             LevelOne levelOne = new LevelOne();
             LevelTwo levelTwo = new LevelTwo();
             LevelThree levelThree = new LevelThree();
+            LevelFour levelFour = new LevelFour();
 
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
             levels.add(levelThree);
+            levels.add(levelFour);
 
-            Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.PORT);
+            Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.CLIENT_PORT);
 
             DataInputStream inbound = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream());
