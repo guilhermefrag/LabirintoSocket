@@ -3,9 +3,11 @@ import configs.GlobalsVariables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,26 +16,32 @@ public class LabirintoServerSocket {
     private static int nextLevelIndex = 0;
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(GlobalsVariables.SERVER_PORT, GlobalsVariables.SERVER_BACKLOG);
-        LevelOne levelOne = new LevelOne();
-        LevelTwo levelTwo = new LevelTwo();
-        LevelThree levelThree = new LevelThree();
-        LevelFour levelFour = new LevelFour();
+        try {
+            ServerSocket serverSocket = new ServerSocket(GlobalsVariables.SERVER_PORT, GlobalsVariables.SERVER_BACKLOG);
+            LevelOne levelOne = new LevelOne();
+            LevelTwo levelTwo = new LevelTwo();
+            LevelThree levelThree = new LevelThree();
+            LevelFour levelFour = new LevelFour();
 
-        List<Level> levels = new ArrayList<>();
-        levels.add(levelOne);
-        levels.add(levelTwo);
-        levels.add(levelThree);
-        levels.add(levelFour);
+            List<Level> levels = new ArrayList<>();
+            levels.add(levelOne);
+            levels.add(levelTwo);
+            levels.add(levelThree);
+            levels.add(levelFour);
 
-        while (true) {
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Accepted connection from: " + clientSocket);
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Accepted connection from: " + clientSocket);
 
-            Thread clientHandlerThread = new Thread(() -> {
-                handleClient(clientSocket, levels);
-            });
-            clientHandlerThread.start();
+                Thread clientHandlerThread = new Thread(() -> {
+                    handleClient(clientSocket, levels);
+                });
+                clientHandlerThread.start();
+            }
+        }catch (SocketException e) {
+            System.out.println("Socket closed");
+        }catch (EOFException e){
+            System.out.println("Thread closed");
         }
 
     }

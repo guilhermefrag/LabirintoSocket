@@ -64,7 +64,17 @@ public class LabirintoClientSocket {
                 currentLevel.printLevel();
                 currentLevel.printSuccessArt();
                 currentLevel.printFinalArt();
-                currentLevel.printRestartArt();
+
+                System.out.println("Você completou todos os níveis. Deseja sair? (S para sair, qualquer outra tecla para continuar): ");
+                userInput = scanner.nextLine();
+
+                if (userInput.equalsIgnoreCase("S")) {
+                    System.out.println("Obrigado por jogar! Até logo!");
+                    clientSocket.close();
+                    System.exit(0);
+                }else{
+                    currentLevel.printRestartArt();
+                }
             }
             else if (isLevelCompleted) {
                 currentLevel.printLevel();
@@ -76,4 +86,4 @@ public class LabirintoClientSocket {
 
         }
     }
-}
+}}
