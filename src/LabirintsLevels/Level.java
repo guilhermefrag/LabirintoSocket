@@ -35,7 +35,7 @@ public class Level {
 
     public void awaitPrintTime(){
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
