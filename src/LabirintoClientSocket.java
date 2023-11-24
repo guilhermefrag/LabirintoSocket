@@ -1,5 +1,5 @@
 import LabirintsLevels.*;
-import configs.GlobalsVariables;
+import configs.GlobalVariables;
 
 import java.io.*;
 import java.net.*;
@@ -37,10 +37,10 @@ public class LabirintoClientSocket {
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
-            levels.add(levelThree);
-            levels.add(levelFour);
+//            levels.add(levelThree);
+//            levels.add(levelFour);
 
-            Socket clientSocket = new Socket(GlobalsVariables.HOST, GlobalsVariables.CLIENT_PORT);
+            Socket clientSocket = new Socket(GlobalVariables.HOST, GlobalVariables.CLIENT_PORT);
 
             DataInputStream inbound = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream outbound = new DataOutputStream(clientSocket.getOutputStream());
@@ -51,7 +51,7 @@ public class LabirintoClientSocket {
             String userInput = null;
             outbound.writeInt(requestedLevel);
             System.out.println(currentLevel.getLabyrinthFrames()[0]);
-            System.out.println("Enter your moves (W/A/S/D, separated by commas): ");
+            System.out.println("Digite seus movimentos (W/A/S/D): ");
 
             userInput = scanner.nextLine();
 
@@ -67,12 +67,16 @@ public class LabirintoClientSocket {
                 currentLevel.printRestartArt();
                 System.out.println("Você completou todos os níveis. Deseja sair? (S para sair, qualquer outra tecla para continuar): ");
                 userInput = scanner.nextLine();
-                if (!userInput.equalsIgnoreCase("S")) {
-                    currentLevel.printRestartArt();
                 if (userInput.equalsIgnoreCase("S")) {
                     System.out.println("Obrigado por jogar! Até logo!");
+
+                    inbound.close();
+                    outbound.close();
                     clientSocket.close();
                     System.exit(0);
+                } else {
+                    requestedLevel = 1;
+                }
             }
             else if (isLevelCompleted) {
                 currentLevel.printLevel();
@@ -81,9 +85,6 @@ public class LabirintoClientSocket {
             else {
                 currentLevel.printFailedArt();
             }
-
-
+        }
     }
 }
-        }
-    }}

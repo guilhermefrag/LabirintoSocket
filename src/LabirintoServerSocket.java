@@ -1,5 +1,5 @@
 import LabirintsLevels.*;
-import configs.GlobalsVariables;
+import configs.GlobalVariables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,7 +17,7 @@ public class LabirintoServerSocket {
 
     public static void main(String[] args) throws IOException {
         try {
-            ServerSocket serverSocket = new ServerSocket(GlobalsVariables.SERVER_PORT, GlobalsVariables.SERVER_BACKLOG);
+            ServerSocket serverSocket = new ServerSocket(GlobalVariables.SERVER_PORT, GlobalVariables.SERVER_BACKLOG);
             LevelOne levelOne = new LevelOne();
             LevelTwo levelTwo = new LevelTwo();
             LevelThree levelThree = new LevelThree();
@@ -26,17 +26,21 @@ public class LabirintoServerSocket {
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
-            levels.add(levelThree);
-            levels.add(levelFour);
+//            levels.add(levelThree);
+//            levels.add(levelFour);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from: " + clientSocket);
+                try {
+                    Thread clientHandlerThread = new Thread(() -> {
+                        handleClient(clientSocket, levels);
+                    });
+                    clientHandlerThread.start();
+                } catch (Exception e) {
+                    System.out.println("Thread interrupted");
+                }
 
-                Thread clientHandlerThread = new Thread(() -> {
-                    handleClient(clientSocket, levels);
-                });
-                clientHandlerThread.start();
             }
         }catch (SocketException e) {
             System.out.println("Socket closed");
@@ -60,7 +64,7 @@ public class LabirintoServerSocket {
             nextLevelIndex = requestedLevel + 1;
 
             Level currentLevel = levels.get(currentLevelIndex);
-            while(true) {
+            while (true) {
                 try {
                     String moves = inbound.readUTF();
 
@@ -81,6 +85,11 @@ public class LabirintoServerSocket {
                         currentLevelIndex = 0;
                     }
 
+                } catch (EOFException e) {
+                    break;
+                } catch (SocketException e) {
+                    System.out.println("Socket Finalizado");
+                    break;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
