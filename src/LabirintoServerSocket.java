@@ -26,8 +26,8 @@ public class LabirintoServerSocket {
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
-//            levels.add(levelThree);
-//            levels.add(levelFour);
+            levels.add(levelThree);
+            levels.add(levelFour);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();

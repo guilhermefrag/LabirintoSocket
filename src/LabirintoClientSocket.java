@@ -37,8 +37,8 @@ public class LabirintoClientSocket {
             List<Level> levels = new ArrayList<>();
             levels.add(levelOne);
             levels.add(levelTwo);
-//            levels.add(levelThree);
-//            levels.add(levelFour);
+            levels.add(levelThree);
+            levels.add(levelFour);
 
             Socket clientSocket = new Socket(GlobalVariables.HOST, GlobalVariables.CLIENT_PORT);
 
